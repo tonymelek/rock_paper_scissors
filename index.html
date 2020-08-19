@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game</title>
+    <link rel="shortcut icon" href="./images/" type="image/x-icon">
+    <link rel="shortcut icon" href="./images/favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="index/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./css/style.css">
+    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
+
+</head>
+
+<body>
+    <div class="container">
+        <header class="row  mx-auto">
+            <div class="col-4 left">
+                <img src="./images/00.png" alt="left_image" id="left_image">
+            </div>
+            <div class="col-4 center">
+                <h1 id="header"></h1>
+            </div>
+            <div class="col-4 right">
+                <img src="./images/000.png" alt="right_image" id="right_image">
+            </div>
+        </header>
+
+
+        <div class="row  selector mx-auto">
+            <div class="col-4">
+                <!-- <a href="#" id="rock"><img src="./images/r.png" alt="rock"></a> -->
+                <a href="#" id="left"><i class="fas fa-chevron-circle-left "></i></a>
+            </div>
+            <div class="col-4">
+                <!-- <a href="#" id="paper"><img src="./images/p.png" alt="paper"></a> -->
+                <img src="./images/r.png" alt="selector" id="userDisplay">
+            </div>
+            <div class="col-4">
+                <!-- <a href="#" id="scissors"><img src="./images/s.png" alt="scissors"></a> -->
+                <a href="#" id="right"><i class="fas fa-chevron-circle-right"></i></a>
+
+
+            </div>
+        </div>
+        <div class="row mx-auto selection">
+            <div class="col-4">
+                <h3>You</h3>
+            </div>
+            <div class="col-4"></div>
+            <div class="col-4">
+                <h3>PC</h3>
+            </div>
+        </div>
+        <div class="row mx-auto selection">
+            <div class="col-4">
+                <img src="./images/r.png" alt="" id="p1Choice">
+            </div>
+            <div class="col-4">
+                <h1>Vs</h1>
+            </div>
+            <div class="col-4">
+                <img src="./images/r.png" alt="" id="p2Choice">
+            </div>
+        </div>
+        <div class="row score mx-auto">
+            <div class="col-4"></div>
+            <div class="col-4">
+
+            </div>
+            <div class="col-4"></div>
+        </div>
+        <div class="row score mx-auto">
+            <div class="col-4">
+                <h1 id="p1Score">
+                    0
+                </h1>
+            </div>
+            <div class="col-4">
+                <h1>Score</h1>
+            </div>
+            <div class="col-4">
+                <h1 id="p2Score">0</h1>
+            </div>
+        </div>
+        <footer class="row mx-auto">
+            <div class="col-12">
+                <p class="text-center">Copyright &copy; <a href="mailto:tonymelek.au@gmail.com"
+                        class="text-warning">Tony
+                        Melek</a> 2020</p>
+            </div>
+
+        </footer>
+    </div>
+
+
+
+
+    <script src="./js/app.js"></script>
+
+    <!-- Footer -->
+    <footer>
+
+
+
+    </footer>
+
+</body>
+
+
+
+
+
+
+
+
+<!-- BootstrapCDN Scripts -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+    crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+    crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>
