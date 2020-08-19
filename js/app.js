@@ -18,8 +18,8 @@ const headerItems = ["Rock", "Paper", "Scissors"]
 var i = 0;
 setInterval(() => {
     header.textContent = headerItems[i];
-    left_image.src = "./images/0" + i + ".png"
-    right_image.src = "./images/00" + i + ".png"
+    left_image.src = "./images/00" + i + ".png"
+    right_image.src = "./images/0" + i + ".png"
     i = (i + 1) % 3
 }, 1000)
 
