@@ -18,8 +18,8 @@ const headerItems = ["Rock", "Paper", "Scissors"]
 var i = 0;
 setInterval(() => {
     header.textContent = headerItems[i];
-    left_image.src = "../images/0" + i + ".png"
-    right_image.src = "../images/00" + i + ".png"
+    left_image.src = "./images/0" + i + ".png"
+    right_image.src = "./images/00" + i + ".png"
     i = (i + 1) % 3
 }, 1000)
 
@@ -28,7 +28,7 @@ setInterval(() => {
 left.addEventListener("click", () => {
     userD == 0 ? userD += 2 : userD += -1
     userD = Math.abs(userD % 3)
-    userDisplay.src = "../images/" + userD + ".png"
+    userDisplay.src = "./images/" + userD + ".png"
 });
 right.addEventListener("click", () => {
     userD++
@@ -56,8 +56,8 @@ userDisplay.addEventListener("click", () => {
 function test(userInput) {
     var computerInput = options[Math.floor(Math.random() * 3)]
 
-    p1Choice.src = "../images/" + userInput + ".png"
-    p2Choice.src = "../images/" + computerInput + ".png"
+    p1Choice.src = "./images/" + userInput + ".png"
+    p2Choice.src = "./images/" + computerInput + ".png"
 
     var truthTable = [["r", "p"], ["s", "r"], ["p", "s"]] // [[loser,winner]]
     for (element of truthTable) {
