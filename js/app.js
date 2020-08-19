@@ -33,7 +33,7 @@ left.addEventListener("click", () => {
 right.addEventListener("click", () => {
     userD++
     userD = Math.abs(userD % 3)
-    userDisplay.src = "../images/" + userD + ".png"
+    userDisplay.src = "./images/" + userD + ".png"
 });
 
 userDisplay.addEventListener("click", () => {
