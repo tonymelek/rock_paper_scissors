@@ -25,18 +25,22 @@ setInterval(() => {
 
 
 
-left.addEventListener("click", () => {
+left.addEventListener("click", left_handler);
+right.addEventListener("click", right_handler);
+
+function left_handler() {
     userD == 0 ? userD += 2 : userD += -1
     userD = Math.abs(userD % 3)
     userDisplay.src = "./images/" + userD + ".png"
-});
-right.addEventListener("click", () => {
+}
+
+function right_handler() {
     userD++
     userD = Math.abs(userD % 3)
     userDisplay.src = "./images/" + userD + ".png"
-});
+}
 
-userDisplay.addEventListener("click", () => {
+function play() {
     let userInput = "";
     if (userD == 0) {
         userInput = "r"
@@ -47,11 +51,26 @@ userDisplay.addEventListener("click", () => {
         userInput = "s"
     }
     test(userInput)
-});
+
+}
+
+
+userDisplay.addEventListener("click", play);
 
 
 
+document.addEventListener('keyup', (e) => {
+    if (e.key == "ArrowRight") {
+        right_handler()
+    }
+    else if (e.key == "ArrowLeft") {
+        left_handler()
+    }
+    else if (e.key == "Enter") {
+        play()
+    }
 
+})
 
 function test(userInput) {
     var computerInput = options[Math.floor(Math.random() * 3)]
