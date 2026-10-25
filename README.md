@@ -15,7 +15,7 @@ Keys **R**, **P**, and **S** play those moves. **Reset** clears the score and th
 
 You can try the hosted copy at [Rock Paper Scissors](https://tonymelek.github.io/rock_paper_scissors/).
 
-![The game, with three move buttons and a score](./images/rps.png)
+![Mobile layout: score bar, play arena with versus board, and move picks at the bottom](./images/rps.png)
 
 ## Install and play offline
 
