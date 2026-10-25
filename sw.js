@@ -1,5 +1,5 @@
 // Bump CACHE when a precached file changes so the next visit drops the old copy.
-const CACHE = "rps-v1";
+const CACHE = "rps-v2";
 
 const PRECACHE = [
   "./",
@@ -12,6 +12,9 @@ const PRECACHE = [
   "./images/rock.png",
   "./images/paper.png",
   "./images/scissors.png",
+  "./images/r.png",
+  "./images/p.png",
+  "./images/s.png",
   "./icons/icon-192.png",
   "./icons/icon-512.png",
   "./icons/icon-maskable-512.png",

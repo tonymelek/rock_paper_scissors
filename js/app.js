@@ -97,8 +97,11 @@ function reset() {
 
 function showMove(image, id, prefix) {
   const move = moveById(id);
-  image.src = `./images/${move.id}.png`;
+  const path = `./images/${move.id}.png`;
   image.alt = `${prefix} ${move.label}`;
+  // Browsers skip a repaint when src is unchanged; clear first so each round updates.
+  image.removeAttribute("src");
+  image.src = path;
 }
 
 function renderScores() {
