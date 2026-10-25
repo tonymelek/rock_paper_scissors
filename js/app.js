@@ -1,92 +1,130 @@
-const left = document.getElementById("left")
-const userDisplay = document.getElementById("userDisplay")
-const right = document.getElementById("right")
-const header = document.getElementById("header")
-const left_image = document.getElementById("left_image")
-const right_image = document.getElementById("right_image")
-p1Score = document.getElementById("p1Score")
-p2Score = document.getElementById("p2Score")
-p1Choice = document.getElementById("p1Choice")
-p2Choice = document.getElementById("p2Choice")
-const options = ["r", "p", "s"];
+import {
+  MOVES,
+  computerMove,
+  moveById,
+  outcome,
+  resultSentence,
+} from "./game.js";
 
-var userScore = 0
-var computerScore = 0
-var userInput;
-var userD = 0
-const headerItems = ["Rock", "Paper", "Scissors"]
-var i = 0;
-setInterval(() => {
-    header.textContent = headerItems[i];
-    left_image.src = "./images/00" + i + ".png"
-    right_image.src = "./images/0" + i + ".png"
-    i = (i + 1) % 3
-}, 1000)
+const STORAGE_KEY = "rps-scores";
 
+const resultEl = document.querySelector("#result");
+const roundStatus = document.querySelector("#round-status");
+const round = document.querySelector("#round");
+const playerImg = document.querySelector("#player-choice");
+const computerImg = document.querySelector("#computer-choice");
+const playerScoreEl = document.querySelector("#player-score");
+const computerScoreEl = document.querySelector("#computer-score");
+const resetButton = document.querySelector("#reset");
+const installButton = document.querySelector("#install");
 
+const scores = loadScores();
+renderScores();
 
-left.addEventListener("click", left_handler);
-right.addEventListener("click", right_handler);
+document.querySelector(".moves").addEventListener("click", (event) => {
+  const button = event.target.closest("[data-move]");
+  if (!button) return;
+  play(button.dataset.move);
+});
 
-function left_handler() {
-    userD == 0 ? userD += 2 : userD += -1
-    userD = Math.abs(userD % 3)
-    userDisplay.src = "./images/" + userD + ".png"
+resetButton.addEventListener("click", reset);
+
+document.addEventListener("keydown", (event) => {
+  if (event.metaKey || event.ctrlKey || event.altKey) return;
+  const key = event.key.toLowerCase();
+  const move = MOVES.find((item) => item.key === key);
+  if (!move) return;
+  event.preventDefault();
+  play(move.id);
+});
+
+let deferredPrompt = null;
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredPrompt = event;
+  installButton.hidden = false;
+});
+
+installButton.addEventListener("click", async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installButton.hidden = true;
+});
+
+window.addEventListener("appinstalled", () => {
+  installButton.hidden = true;
+});
+
+if ("serviceWorker" in navigator) {
+  navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" }).catch(() => {
+    // file:// and some private modes refuse a worker. The page still plays.
+  });
 }
 
-function right_handler() {
-    userD++
-    userD = Math.abs(userD % 3)
-    userDisplay.src = "./images/" + userD + ".png"
+function play(playerId) {
+  if (!moveById(playerId)) return;
+  const computerId = computerMove();
+  const result = outcome(playerId, computerId);
+  if (result === "win") scores.player += 1;
+  if (result === "lose") scores.computer += 1;
+  saveScores();
+  resultEl.textContent = resultSentence(playerId, computerId);
+  resultEl.dataset.outcome = result;
+  showMove(playerImg, playerId, "You played");
+  showMove(computerImg, computerId, "Computer played");
+  round.hidden = false;
+  roundStatus.hidden = true;
+  renderScores();
 }
 
-function play() {
-    let userInput = "";
-    if (userD == 0) {
-        userInput = "r"
-    } else if (userD == 1) {
-        userInput = "p"
-    }
-    else {
-        userInput = "s"
-    }
-    test(userInput)
-
+function reset() {
+  scores.player = 0;
+  scores.computer = 0;
+  localStorage.removeItem(STORAGE_KEY);
+  resultEl.textContent = "Pick a move.";
+  delete resultEl.dataset.outcome;
+  round.hidden = true;
+  roundStatus.hidden = false;
+  playerImg.removeAttribute("src");
+  computerImg.removeAttribute("src");
+  playerImg.alt = "";
+  computerImg.alt = "";
+  renderScores();
 }
 
-
-userDisplay.addEventListener("click", play);
-
-
-
-document.addEventListener('keyup', (e) => {
-    if (e.key == "ArrowRight") {
-        right_handler()
-    }
-    else if (e.key == "ArrowLeft") {
-        left_handler()
-    }
-    else if (e.key == "Enter") {
-        play()
-    }
-
-})
-
-function test(userInput) {
-    var computerInput = options[Math.floor(Math.random() * 3)]
-
-    p1Choice.src = "./images/" + userInput + ".png"
-    p2Choice.src = "./images/" + computerInput + ".png"
-
-    var truthTable = [["r", "p"], ["s", "r"], ["p", "s"]] // [[loser,winner]]
-    for (element of truthTable) {
-        if (computerInput === element[0] && userInput === element[1]) {
-            userScore++;
-            p1Score.textContent = userScore
-        } else if (computerInput === element[1] && userInput === element[0]) {
-            computerScore++;
-            p2Score.textContent = computerScore
-        }
-    }
+function showMove(image, id, prefix) {
+  const move = moveById(id);
+  image.src = `./images/${move.id}.png`;
+  image.alt = `${prefix} ${move.label}`;
 }
 
+function renderScores() {
+  playerScoreEl.textContent = String(scores.player);
+  computerScoreEl.textContent = String(scores.computer);
+}
+
+function loadScores() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? "");
+    const player = Number(parsed.player);
+    const computer = Number(parsed.computer);
+    if (
+      Number.isInteger(player) &&
+      Number.isInteger(computer) &&
+      player >= 0 &&
+      computer >= 0
+    ) {
+      return { player, computer };
+    }
+  } catch {
+    // A missing or broken value starts a fresh session.
+  }
+  return { player: 0, computer: 0 };
+}
+
+function saveScores() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(scores));
+}

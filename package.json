@@ -1,0 +1,13 @@
+{
+  "name": "rock-paper-scissors",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:css": "lightningcss --minify css/input.css -o css/app.css",
+    "watch:css": "node scripts/watch-css.js",
+    "test": "node --test"
+  },
+  "devDependencies": {
+    "lightningcss-cli": "^1.30.2"
+  }
+}

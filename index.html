@@ -2,151 +2,101 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game</title>
-    <link rel="shortcut icon" href="./images/logo.png" type="image/x-icon">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./css/style.css">
-    <script src="https://kit.fontawesome.com/c939d0e917.js"></script>
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="A small rock-paper-scissors game that plays offline.">
+  <meta name="theme-color" content="#424874">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="RPS">
+  <title>Rock Paper Scissors</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icons/icon-192.png" type="image/png">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./css/app.css">
 </head>
 
 <body>
-    <div class="container">
-        <header class="row  mx-auto">
-            <div class="col-4 left">
-                <img src="./images/000.png" alt="left_image" id="left_image">
-            </div>
-            <div class="col-4 center">
-                <h1 id="header"></h1>
-            </div>
-            <div class="col-4 right">
-                <img src="./images/00.png" alt="right_image" id="right_image">
-            </div>
-        </header>
-
-        <div class="row  instructions mx-auto">
-            <div class="col-12">
-                <h2>Instructions</h2>
-                <p>Tap/Click on Left <i class="fas fa-chevron-circle-left "></i>& right <i
-                        class="fas fa-chevron-circle-right"></i>arrows below to choose Rock/Paper/Scissors. Once you
-                    decide,click the
-                    image between the arrows to play</p>
-                <a href="#" class="btn btn-lrg btn-primary">
-                    Rules
-                </a>
-                <div class="rules">
-                    <ul>
-                        <li>Rock wins to Scissors</li>
-                        <li>Scissors wins to Paper</li>
-                        <li>Paper wins to rock</li>
-                        <li>Same choice from both players is a tie</li>
-                    </ul>
-                </div>
-
-            </div>
-        </div>
-
-        <div class="row  selector mx-auto">
-            <div class="col-4">
-                <!-- <a href="#" id="rock"><img src="./images/r.png" alt="rock"></a> -->
-                <a href="#" id="left"><i class="fas fa-chevron-circle-left "></i></a>
-            </div>
-            <div class="col-4">
-                <!-- <a href="#" id="paper"><img src="./images/p.png" alt="paper"></a> -->
-                <img src="./images/r.png" alt="selector" id="userDisplay">
-            </div>
-            <div class="col-4">
-                <!-- <a href="#" id="scissors"><img src="./images/s.png" alt="scissors"></a> -->
-                <a href="#" id="right"><i class="fas fa-chevron-circle-right"></i></a>
-
-
-            </div>
-        </div>
-        <div class="row mx-auto selection">
-            <div class="col-4">
-                <h3>You</h3>
-            </div>
-            <div class="col-4"></div>
-            <div class="col-4">
-                <h3>PC</h3>
-            </div>
-        </div>
-        <div class="row mx-auto selection">
-            <div class="col-4">
-                <img src="./images/r.png" alt="" id="p1Choice">
-            </div>
-            <div class="col-4">
-                <h1>Vs</h1>
-            </div>
-            <div class="col-4">
-                <img src="./images/r.png" alt="" id="p2Choice">
-            </div>
-        </div>
-        <div class="row score mx-auto">
-            <div class="col-4"></div>
-            <div class="col-4">
-
-            </div>
-            <div class="col-4"></div>
-        </div>
-        <div class="row score mx-auto">
-            <div class="col-4">
-                <h1 id="p1Score">
-                    0
-                </h1>
-            </div>
-            <div class="col-4">
-                <h1>Score</h1>
-            </div>
-            <div class="col-4">
-                <h1 id="p2Score">0</h1>
-            </div>
-        </div>
-        <footer class="row mx-auto">
-            <div class="col-12">
-                <p class="text-center">Copyright &copy; <a href="mailto:tonymelek.au@gmail.com"
-                        class="text-warning">Tony
-                        Melek</a> 2020</p>
-            </div>
-
-        </footer>
+  <header class="site-header">
+    <div class="wrap header-inner">
+      <img class="logo" src="./images/logo.png" alt="" width="72" height="72">
+      <div>
+        <h1>Rock Paper Scissors</h1>
+        <p class="tagline">A light game you can keep on this device.</p>
+      </div>
     </div>
+  </header>
 
+  <main class="wrap">
+    <p class="how">Choose a move. The computer picks one too. Keys R, P, and S play immediately.</p>
+    <p id="result" class="result" aria-live="polite" aria-atomic="true">Pick a move.</p>
 
+    <section class="moves" aria-label="Your move">
+      <button type="button" class="move" data-move="rock" aria-keyshortcuts="R">
+        <img src="./images/rock.png" alt="" width="180" height="180">
+        <span>Rock <kbd>R</kbd></span>
+      </button>
+      <button type="button" class="move" data-move="paper" aria-keyshortcuts="P">
+        <img src="./images/paper.png" alt="" width="180" height="180">
+        <span>Paper <kbd>P</kbd></span>
+      </button>
+      <button type="button" class="move" data-move="scissors" aria-keyshortcuts="S">
+        <img src="./images/scissors.png" alt="" width="180" height="180">
+        <span>Scissors <kbd>S</kbd></span>
+      </button>
+    </section>
 
+    <p id="round-status" class="round-status">The last round shows up here.</p>
+    <section id="round" class="board" aria-label="Last round" hidden>
+      <figure>
+        <img id="player-choice" alt="">
+        <figcaption>You</figcaption>
+      </figure>
+      <p class="versus">Vs</p>
+      <figure>
+        <img id="computer-choice" alt="">
+        <figcaption>Computer</figcaption>
+      </figure>
+    </section>
 
-    <script src="./js/app.js"></script>
+    <section class="score" aria-label="Score">
+      <p class="tally">
+        <span id="player-score" class="points">0</span>
+        <span class="label">You</span>
+      </p>
+      <div class="score-actions">
+        <h2>Score</h2>
+        <button type="button" id="reset">Reset</button>
+      </div>
+      <p class="tally">
+        <span id="computer-score" class="points">0</span>
+        <span class="label">Computer</span>
+      </p>
+    </section>
 
-    <!-- Footer -->
-    <footer>
+    <details class="rules">
+      <summary>Rules</summary>
+      <ul>
+        <li>Rock beats Scissors</li>
+        <li>Scissors beat Paper</li>
+        <li>Paper beats Rock</li>
+        <li>The same move is a tie</li>
+      </ul>
+    </details>
 
+    <noscript>
+      <p class="how">This game needs JavaScript. After one online visit, a saved copy can still open offline.</p>
+    </noscript>
+  </main>
 
+  <footer class="site-footer">
+    <div class="wrap">
+      <p>Copyright © <a href="mailto:tonymelek.au@gmail.com">Tony Melek</a> 2026</p>
+      <button type="button" id="install" hidden>Play offline</button>
+    </div>
+  </footer>
 
-    </footer>
-
-</body>
-
-
-
-
-
-
-
-
-<!-- BootstrapCDN Scripts -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-    integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-    crossorigin="anonymous"></script>
-<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
-    integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
-    crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
-    integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
-    crossorigin="anonymous"></script>
+  <script type="module" src="./js/app.js"></script>
 </body>
 
 </html>
