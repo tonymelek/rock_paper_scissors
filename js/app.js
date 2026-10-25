@@ -19,6 +19,8 @@ const computerScoreEl = document.querySelector("#computer-score");
 const resetButton = document.querySelector("#reset");
 const installButton = document.querySelector("#install");
 
+const NEUTRAL_MOVE = "rock";
+
 const scores = loadScores();
 let roundToken = 0;
 
@@ -27,6 +29,7 @@ if (!resultEl || !document.querySelector(".moves") || !resetButton) {
 }
 
 renderScores();
+showNeutralBoard();
 
 document.querySelector(".moves").addEventListener("click", (event) => {
   const button = event.target.closest("[data-move]");
@@ -88,9 +91,9 @@ function play(playerId) {
   saveScores();
   resultEl.textContent = resultSentence(playerId, computerId);
   resultEl.dataset.outcome = result;
+  round.classList.remove("board--idle");
   showMove(playerImg, playerId, "You played");
   showMove(computerImg, computerId, "Computer played");
-  round.hidden = false;
   renderScores();
 }
 
@@ -98,20 +101,28 @@ function reset() {
   scores.player = 0;
   scores.computer = 0;
   localStorage.removeItem(STORAGE_KEY);
-  resultEl.textContent = "Pick a move.";
+  resultEl.textContent = "";
   delete resultEl.dataset.outcome;
-  round.hidden = true;
-  playerImg.removeAttribute("src");
-  computerImg.removeAttribute("src");
-  playerImg.alt = "";
-  computerImg.alt = "";
+  showNeutralBoard();
   renderScores();
+}
+
+function showNeutralBoard() {
+  round.classList.add("board--idle");
+  setMoveImage(playerImg, NEUTRAL_MOVE);
+  setMoveImage(computerImg, NEUTRAL_MOVE);
+  playerImg.alt = "Pick a move below";
+  computerImg.alt = "Computer ready";
 }
 
 function showMove(image, id, prefix) {
   const move = moveById(id);
   image.alt = `${prefix} ${move.label}`;
-  image.src = `./images/${move.id}.png?r=${roundToken}`;
+  setMoveImage(image, move.id);
+}
+
+function setMoveImage(image, id) {
+  image.src = `./images/${id}.png?r=${roundToken}`;
 }
 
 function renderScores() {

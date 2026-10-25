@@ -40,33 +40,42 @@
       <button type="button" id="reset" class="bar-btn bar-btn--ghost">Reset</button>
     </div>
 
-    <p id="result" class="result" aria-live="polite" aria-atomic="true">Pick a move.</p>
+    <section class="play-arena" aria-label="Play area">
+      <div class="play-arena-inner">
+        <div class="play-stage">
+          <p id="result" class="result" aria-live="polite" aria-atomic="true"></p>
 
-    <section id="round" class="board" aria-label="Last round" hidden>
-      <figure>
-        <img id="player-choice" alt="">
-        <figcaption>You</figcaption>
-      </figure>
-      <p class="versus">Vs</p>
-      <figure>
-        <img id="computer-choice" alt="">
-        <figcaption>CPU</figcaption>
-      </figure>
-    </section>
+          <section id="round" class="board board--idle" aria-label="Current round">
+            <figure>
+              <img id="player-choice" src="./images/rock.png" alt="Pick a move below">
+              <figcaption>You</figcaption>
+            </figure>
+            <p class="versus">Vs</p>
+            <figure>
+              <img id="computer-choice" src="./images/rock.png" alt="Computer ready">
+              <figcaption>CPU</figcaption>
+            </figure>
+          </section>
+        </div>
 
-    <section class="moves" aria-label="Your move">
-      <button type="button" class="move" data-move="rock" aria-keyshortcuts="R">
-        <img src="./images/rock.png" alt="" width="120" height="120">
-        <span>Rock <kbd class="key-hint">R</kbd></span>
-      </button>
-      <button type="button" class="move" data-move="paper" aria-keyshortcuts="P">
-        <img src="./images/paper.png" alt="" width="120" height="120">
-        <span>Paper <kbd class="key-hint">P</kbd></span>
-      </button>
-      <button type="button" class="move" data-move="scissors" aria-keyshortcuts="S">
-        <img src="./images/scissors.png" alt="" width="120" height="120">
-        <span>Scissors <kbd class="key-hint">S</kbd></span>
-      </button>
+        <div class="pick-block">
+          <h2 class="pick-title">Pick your move</h2>
+          <section class="moves" aria-labelledby="pick-title">
+            <button type="button" class="move" data-move="rock" aria-keyshortcuts="R">
+              <img src="./images/rock.png" alt="" width="120" height="120">
+              <span>Rock <kbd class="key-hint">R</kbd></span>
+            </button>
+            <button type="button" class="move" data-move="paper" aria-keyshortcuts="P">
+              <img src="./images/paper.png" alt="" width="120" height="120">
+              <span>Paper <kbd class="key-hint">P</kbd></span>
+            </button>
+            <button type="button" class="move" data-move="scissors" aria-keyshortcuts="S">
+              <img src="./images/scissors.png" alt="" width="120" height="120">
+              <span>Scissors <kbd class="key-hint">S</kbd></span>
+            </button>
+          </section>
+        </div>
+      </div>
     </section>
 
     <noscript>
