@@ -1,5 +1,5 @@
 // Bump CACHE when a precached file changes so the next visit drops the old copy.
-const CACHE = "rps-v2";
+const CACHE = "rps-v3";
 
 const PRECACHE = [
   "./",
@@ -46,21 +46,36 @@ self.addEventListener("fetch", (event) => {
   if (url.origin !== self.location.origin) return;
 
   if (request.mode === "navigate") {
-    event.respondWith(networkThenCache(request, "./index.html"));
+    event.respondWith(networkFirst(request, "./index.html"));
+    return;
+  }
+
+  if (isShellAsset(url)) {
+    event.respondWith(networkFirst(request));
     return;
   }
 
   event.respondWith(cacheThenRefresh(event, request));
 });
 
-async function networkThenCache(request, fallback) {
+function isShellAsset(url) {
+  return /\.(js|css|html|webmanifest)$/i.test(url.pathname);
+}
+
+async function networkFirst(request, fallback) {
   const cache = await caches.open(CACHE);
   try {
     const response = await fetch(request);
-    if (response.ok) cache.put(fallback, response.clone());
+    if (response.ok) {
+      await cache.put(fallback ?? request, response.clone());
+    }
     return response;
   } catch {
-    return (await cache.match(fallback)) || (await cache.match("./index.html"));
+    return (
+      (await cache.match(request)) ||
+      (fallback ? await cache.match(fallback) : undefined) ||
+      new Response("Offline", { status: 503, statusText: "Offline" })
+    );
   }
 }
 

@@ -176,7 +176,7 @@ kbd {
 }
 
 .board figcaption,
-.score-actions h2 {
+.score-title {
   font-weight: 600;
 }
 
@@ -190,9 +190,21 @@ kbd {
   grid-template-columns: 1fr auto 1fr;
   align-items: center;
   gap: 0.5rem;
-  padding-top: 0.35rem;
+  padding: 0.75rem 0 0.35rem;
   border-top: 1px solid var(--ink);
   text-align: center;
+}
+
+.score-title {
+  font-size: 1.1rem;
+  align-self: end;
+  padding-bottom: 0.35rem;
+}
+
+.score-toolbar {
+  display: flex;
+  justify-content: center;
+  padding-bottom: 0.25rem;
 }
 
 .points {
@@ -208,11 +220,22 @@ kbd {
 }
 
 .reset {
-  margin-top: 0.45rem;
-  padding: 0.35rem 0.85rem;
-  border: 1px solid var(--ink);
-  border-radius: 0.45rem;
+  min-width: 9rem;
+  padding: 0.55rem 1.35rem;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--paper);
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+.reset:hover {
   background: var(--header);
+}
+
+.reset:active {
+  transform: translateY(1px);
 }
 
 .rules {

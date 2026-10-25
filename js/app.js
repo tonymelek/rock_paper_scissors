@@ -19,6 +19,12 @@ const resetButton = document.querySelector("#reset");
 const installButton = document.querySelector("#install");
 
 const scores = loadScores();
+let roundToken = 0;
+
+if (!resultEl || !document.querySelector(".moves") || !resetButton) {
+  throw new Error("Rock Paper Scissors: page markup is missing required elements.");
+}
+
 renderScores();
 
 document.querySelector(".moves").addEventListener("click", (event) => {
@@ -40,23 +46,25 @@ document.addEventListener("keydown", (event) => {
 
 let deferredPrompt = null;
 
-window.addEventListener("beforeinstallprompt", (event) => {
-  event.preventDefault();
-  deferredPrompt = event;
-  installButton.hidden = false;
-});
+if (installButton) {
+  window.addEventListener("beforeinstallprompt", (event) => {
+    event.preventDefault();
+    deferredPrompt = event;
+    installButton.hidden = false;
+  });
 
-installButton.addEventListener("click", async () => {
-  if (!deferredPrompt) return;
-  deferredPrompt.prompt();
-  await deferredPrompt.userChoice;
-  deferredPrompt = null;
-  installButton.hidden = true;
-});
+  installButton.addEventListener("click", async () => {
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    installButton.hidden = true;
+  });
 
-window.addEventListener("appinstalled", () => {
-  installButton.hidden = true;
-});
+  window.addEventListener("appinstalled", () => {
+    installButton.hidden = true;
+  });
+}
 
 if ("serviceWorker" in navigator) {
   navigator.serviceWorker.register("./sw.js", { updateViaCache: "none" }).catch(() => {
@@ -66,6 +74,7 @@ if ("serviceWorker" in navigator) {
 
 function play(playerId) {
   if (!moveById(playerId)) return;
+  roundToken += 1;
   const computerId = computerMove();
   const result = outcome(playerId, computerId);
   if (result === "win") scores.player += 1;
@@ -97,11 +106,8 @@ function reset() {
 
 function showMove(image, id, prefix) {
   const move = moveById(id);
-  const path = `./images/${move.id}.png`;
   image.alt = `${prefix} ${move.label}`;
-  // Browsers skip a repaint when src is unchanged; clear first so each round updates.
-  image.removeAttribute("src");
-  image.src = path;
+  image.src = `./images/${move.id}.png?r=${roundToken}`;
 }
 
 function renderScores() {
