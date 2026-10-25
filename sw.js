@@ -1,5 +1,5 @@
 // Bump CACHE when a precached file changes so the next visit drops the old copy.
-const CACHE = "rps-v3";
+const CACHE = "rps-v4";
 
 const PRECACHE = [
   "./",

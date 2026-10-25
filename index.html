@@ -19,34 +19,29 @@
 <body>
   <header class="site-header">
     <div class="wrap header-inner">
-      <img class="logo" src="./images/logo.png" alt="" width="72" height="72">
-      <div>
+      <img class="logo" src="./images/logo.png" alt="" width="56" height="56">
+      <div class="header-text">
         <h1>Rock Paper Scissors</h1>
-        <p class="tagline">A light game you can keep on this device.</p>
+        <p class="tagline">Tap a move. Keys R, P, and S work too.</p>
       </div>
     </div>
   </header>
 
-  <main class="wrap">
-    <p class="how">Choose a move. The computer picks one too. Keys R, P, and S play immediately.</p>
+  <main class="wrap game">
+    <div class="game-bar">
+      <button type="button" id="rules-open" class="bar-btn" aria-haspopup="dialog" aria-controls="rules-dialog">
+        Rules
+      </button>
+      <p class="game-bar-score" aria-label="Score">
+        <span>You <strong id="player-score">0</strong></span>
+        <span class="sep" aria-hidden="true">·</span>
+        <span>CPU <strong id="computer-score">0</strong></span>
+      </p>
+      <button type="button" id="reset" class="bar-btn bar-btn--ghost">Reset</button>
+    </div>
+
     <p id="result" class="result" aria-live="polite" aria-atomic="true">Pick a move.</p>
 
-    <section class="moves" aria-label="Your move">
-      <button type="button" class="move" data-move="rock" aria-keyshortcuts="R">
-        <img src="./images/rock.png" alt="" width="180" height="180">
-        <span>Rock <kbd>R</kbd></span>
-      </button>
-      <button type="button" class="move" data-move="paper" aria-keyshortcuts="P">
-        <img src="./images/paper.png" alt="" width="180" height="180">
-        <span>Paper <kbd>P</kbd></span>
-      </button>
-      <button type="button" class="move" data-move="scissors" aria-keyshortcuts="S">
-        <img src="./images/scissors.png" alt="" width="180" height="180">
-        <span>Scissors <kbd>S</kbd></span>
-      </button>
-    </section>
-
-    <p id="round-status" class="round-status">The last round shows up here.</p>
     <section id="round" class="board" aria-label="Last round" hidden>
       <figure>
         <img id="player-choice" alt="">
@@ -55,44 +50,51 @@
       <p class="versus">Vs</p>
       <figure>
         <img id="computer-choice" alt="">
-        <figcaption>Computer</figcaption>
+        <figcaption>CPU</figcaption>
       </figure>
     </section>
 
-    <section class="score" aria-label="Score">
-      <p class="tally">
-        <span id="player-score" class="points">0</span>
-        <span class="label">You</span>
-      </p>
-      <h2 class="score-title">Score</h2>
-      <p class="tally">
-        <span id="computer-score" class="points">0</span>
-        <span class="label">Computer</span>
-      </p>
+    <section class="moves" aria-label="Your move">
+      <button type="button" class="move" data-move="rock" aria-keyshortcuts="R">
+        <img src="./images/rock.png" alt="" width="120" height="120">
+        <span>Rock <kbd class="key-hint">R</kbd></span>
+      </button>
+      <button type="button" class="move" data-move="paper" aria-keyshortcuts="P">
+        <img src="./images/paper.png" alt="" width="120" height="120">
+        <span>Paper <kbd class="key-hint">P</kbd></span>
+      </button>
+      <button type="button" class="move" data-move="scissors" aria-keyshortcuts="S">
+        <img src="./images/scissors.png" alt="" width="120" height="120">
+        <span>Scissors <kbd class="key-hint">S</kbd></span>
+      </button>
     </section>
-    <div class="score-toolbar">
-      <button type="button" id="reset" class="reset">Reset score</button>
-    </div>
 
-    <details class="rules">
-      <summary>Rules</summary>
+    <noscript>
+      <p class="noscript">This game needs JavaScript. After one online visit, a saved copy can still open offline.</p>
+    </noscript>
+  </main>
+
+  <dialog id="rules-dialog" class="rules-dialog" aria-labelledby="rules-title">
+    <form method="dialog" class="rules-dialog-inner">
+      <header class="rules-dialog-header">
+        <h2 id="rules-title">Rules</h2>
+        <button type="submit" class="dialog-close" aria-label="Close rules">Close</button>
+      </header>
       <ul>
         <li>Rock beats Scissors</li>
         <li>Scissors beat Paper</li>
         <li>Paper beats Rock</li>
         <li>The same move is a tie</li>
       </ul>
-    </details>
-
-    <noscript>
-      <p class="how">This game needs JavaScript. After one online visit, a saved copy can still open offline.</p>
-    </noscript>
-  </main>
+      <p class="rules-foot">Each tap plays one round. Reset clears the score only.</p>
+      <button type="submit" class="dialog-primary">Got it</button>
+    </form>
+  </dialog>
 
   <footer class="site-footer">
-    <div class="wrap">
-      <p>Copyright © <a href="mailto:tonymelek.au@gmail.com">Tony Melek</a> 2026</p>
-      <button type="button" id="install" hidden>Play offline</button>
+    <div class="wrap footer-inner">
+      <p>© <a href="mailto:tonymelek.au@gmail.com">Tony Melek</a> 2026</p>
+      <button type="button" id="install" class="install" hidden>Play offline</button>
     </div>
   </footer>
 

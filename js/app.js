@@ -9,8 +9,9 @@ import {
 const STORAGE_KEY = "rps-scores";
 
 const resultEl = document.querySelector("#result");
-const roundStatus = document.querySelector("#round-status");
 const round = document.querySelector("#round");
+const rulesDialog = document.querySelector("#rules-dialog");
+const rulesOpen = document.querySelector("#rules-open");
 const playerImg = document.querySelector("#player-choice");
 const computerImg = document.querySelector("#computer-choice");
 const playerScoreEl = document.querySelector("#player-score");
@@ -35,7 +36,12 @@ document.querySelector(".moves").addEventListener("click", (event) => {
 
 resetButton.addEventListener("click", reset);
 
+if (rulesOpen && rulesDialog) {
+  rulesOpen.addEventListener("click", () => rulesDialog.showModal());
+}
+
 document.addEventListener("keydown", (event) => {
+  if (rulesDialog?.open) return;
   if (event.metaKey || event.ctrlKey || event.altKey) return;
   const key = event.key.toLowerCase();
   const move = MOVES.find((item) => item.key === key);
@@ -85,7 +91,6 @@ function play(playerId) {
   showMove(playerImg, playerId, "You played");
   showMove(computerImg, computerId, "Computer played");
   round.hidden = false;
-  roundStatus.hidden = true;
   renderScores();
 }
 
@@ -96,7 +101,6 @@ function reset() {
   resultEl.textContent = "Pick a move.";
   delete resultEl.dataset.outcome;
   round.hidden = true;
-  roundStatus.hidden = false;
   playerImg.removeAttribute("src");
   computerImg.removeAttribute("src");
   playerImg.alt = "";
